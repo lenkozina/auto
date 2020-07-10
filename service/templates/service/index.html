@@ -1,0 +1,358 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="keywords" content="business, corporate, corporate website, creative, html5, marketing, multipurpose, responsive, site templates">
+<link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+<title>{{ title }}</title>
+
+{% block css %}
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+{% endblock %}
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+
+</head>
+
+<body data-spy="scroll" data-target="#ha-header">
+
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" id="ha-header">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand logo" href="#">{{ title }}</a> </div>
+    <div class="navbar-collapse collapse ">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#top">наверх</a></li>
+        <li><a href="#services">услуги</a></li>
+        <li><a href="#projects">Наши работы</a></li>
+        <li><a href="#gallery">галерея</a></li>
+        <li><a href="#about">о нас</a></li>
+        <li><a href="#feedback">отзывы</a></li>
+        <li><a href="#contact">контакты</a></li>
+      </ul>
+    </div>
+    <!--/.nav-collapse --> 
+  </div>
+</div>
+<!-- End Fixed navbar --> 
+
+<!-- Full Page Image Header Area -->
+<div id="top" class="header">
+  <div class="flexslider">
+    <ul class="slides">
+      {% for slider in sliders %}
+        <li><img src="{{ STATIC_URL }}{{ slider.image }}" />
+          <p class="flex-caption">{{ slider.text }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<!-- /Full Page Image Header Area --> 
+
+<!-- Раздел услуги -->
+<div id="services" class="services ha-waypoint"  data-animate-down="ha-header-small" data-animate-up="ha-header-large">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-sm-12">
+        <div class=" container TitleSection">
+          <header class="page-head">
+            <h1>Услуги</h1>
+          </header>
+        </div>
+        <p>Услуги по ремонту автомобилей</p>
+        <div class="row">
+          <div class="ser_wrap_3">
+            <ul>
+              {% for category in categories %}
+                <li>
+                  <div class="card">
+                    <div class="card-header" id="heading_{{ category.id }}">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse_{{ category.id }}"
+                                aria-expanded="true" aria-controls="collapse_{{ category.id }}">
+                          <div class="icon_ser"><i class="{{ category.icon }}"></i></div>
+                          <div><h3>{{ category.title | title}}</h3></div>
+                        </button>
+                    </div>
+
+                    <div id="collapse_{{ category.id }}" class="collapse show" aria-labelledby="heading_{{ category.id }}"
+                         data-parent="#accordion">
+                      <div class="card-body">
+                        <div class="card-header">{{ category.desc }}</div>
+                        {% for service in  category.service_set.all%}
+                          {{ service.title }}<a href="#" class="card-link">ссылка</a>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Конец раздела услуги -->
+
+<!-- Галерея -->
+<div id="gallery" class="portfolio">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-sm-12">
+        <div class=" container TitleSection">
+          <header class="page-head">
+            <h1>Галерея</h1>
+          </header>
+        </div>
+        <p>Тут картиночки о том, как классно мы работаем и пацаны вообще ребята</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-sm-12">
+        <div id="filter_container" class="clearfix portfolioContainer">
+          {% for pic in gallery %}
+          <div class="element">
+            <div class="hexagon"> <a href="#"> <span class="mask"></span>
+              <img src="{{ MEDIA_URL }}{{ pic.image }}"/> </a>
+              <div class="portfolio-title">
+                <h4>{{ pic.text }}<span>{{ pic.add_datetime }}</span></h4>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Конец раздела галерея -->
+
+<!-- о нас -->
+<div id="about" class="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-sm-12">
+        <div class=" container TitleSection">
+          <header class="page-head">
+            <h1>О нас</h1>
+          </header>
+        </div>
+        <p>Команда профессионалов, знакомтесь</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      {% for staff in staffs %}
+        <div class="col-xs-12 col-md-4 col-sm-12">
+          <div class="about_wrap">
+            <div class="holder"> <a href="#"> <span class="mask"></span>
+              <img src="{{ MEDIA_URL }}{{ staff.image }}"/> </a>
+            </div>
+            <div class="arrow"></div>
+            <div class="about_data">
+              <p>{{ staff.text}}</p><p>{{ staff.add_datetime}}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <ul class="about_social">
+        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- конец раздела о нас -->
+
+<!-- Раздел цены-->
+<div id="projects" class="projects">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-sm-12">
+        <div class=" container TitleSection">
+          <header class="page-head">
+            <h1>наши работы</h1>
+          </header>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh erat, sagittis sit amet congue at, aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris. aliquam eu libero. Integer molestie, turpis vel ultrices facilisis, nisi mauris sollicitudin mauris.</p>
+        <div class="row">
+          <div class="col-xs-12 col-md-12 col-sm-12">
+            <div class="project_wrap">
+              <ul class="cbp-ig-grid">
+                <li> <a href="#"> <span class="cbp-ig-icon cole-townsend-chat"></span>
+                  <h3 class="cbp-ig-title">project one</h3>
+                  <span class="cbp-ig-category">Fashion</span> </a> </li>
+                <li> <a href="#"> <span class="cbp-ig-icon designmodo-location"></span>
+                  <h3 class="cbp-ig-title">project two</h3>
+                  <span class="cbp-ig-category">Design</span> </a> </li>
+                <li> <a href="#"> <span class="cbp-ig-icon designmodo-settings"></span>
+                  <h3 class="cbp-ig-title">project three</h3>
+                  <span class="cbp-ig-category">Lifestyle</span> </a> </li>
+                <li> <a href="#"> <span class="cbp-ig-icon cesgra-globe"></span>
+                  <h3 class="cbp-ig-title">project four</h3>
+                  <span class="cbp-ig-category">copywriting</span> </a> </li>
+                <li> <a href="#"> <span class="cbp-ig-icon dom-waters-speedo"></span>
+                  <h3 class="cbp-ig-title">project five</h3>
+                  <span class="cbp-ig-category">Gadgets</span> </a> </li>
+                <li> <a href="#"> <span class="cbp-ig-icon joshua-barker-landscape"></span>
+                  <h3 class="cbp-ig-title">project six</h3>
+                  <span class="cbp-ig-category">Music</span> </a> </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Конец раздела Цены -->
+
+<!--Отзывы -->
+<div id="feedback" class="contact">
+  <div class="container">
+
+      <div class="col-xs-12 col-md-12 col-sm-12">
+        <div class=" container TitleSection">
+          <header class="page-head"><div class="row">
+            <h1>Отзывы</h1>
+          </header>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-7 col-sm-12">
+            <div class="contact_wrap" >
+              <h3>Пожалуйста, оставте ваш отзыв</h3>
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  <div class="errors">{{ form.fio.errors }}</div>
+                  <input type="text" size="50" name="{{ form.fio.name }}" id="{{ form.fio.id_for_label }}"
+                         class="form-control required" placeholder="{{ form.fio.label }}*"/>
+                </div>
+                <div class="form-group">
+                    <div class="errors">{{ form.phone_number.errors }}</div>
+                    <input type="text" size="50" name="{{ form.phone_number.name }}" id="{{ form.phone_number.id_for_label}}"
+                           class="form-control" placeholder="{{ form.phone_number.label }}"/>
+                </div>
+                <div class="form-group">
+                    <div class="errors">{{ form.text.errors }}</div>
+                    <textarea class="form-control required" rows="6" name="{{ form.text.name }}" id="{{ form.text.id_for_label }}"
+                              placeholder="{{ form.text.label }}*"/></textarea>
+                </div>
+                  <input class="form-control" type="submit" value="Отправить">
+              </form>
+              <br><br>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-5 col-sm-12">
+            {% for feedback in feedbacks %}
+            <div class="jumbotron">
+              <h5>
+                <p>{{ feedback.fio }}</p>
+                <strong><p>{{ feedback.text }}</p></strong>
+              </h5>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Конец раздела отзывы -->
+
+<!--Контакты -->
+<div id="contact" class="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-sm-12">
+        <div class=" container TitleSection">
+          <header class="page-head">
+            <h1>Контакты</h1>
+          </header>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-7 col-sm-12">
+            <div class="google">
+              <div id="map"></div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-5 col-sm-12">
+            <div class="jumbotron">
+              <h3>Address Info</h3>
+              <address>
+              <strong>Company, Inc.</strong><br>
+              795 Folsom Ave, Suite 600 San Francisco, CA 94107<br>
+              <abbr title="Phone">Tel:</abbr> (123) 456-7890<br>
+              <abbr title="Fax">Fax:</abbr> (123) 456-7890
+              </address>
+              <address>
+              <strong>Email</strong> <a href="mailto:#">first.last@example.com</a><br>
+              <strong>website</strong> <a href="#page13">www.company.com</a>
+              </address>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /конец раздела контакты -->
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-9 col-sm-12">
+        <p>Copyright &copy; 2014 Coyier. All rights reserved.</p>
+      </div>
+      <div class="col-xs-12 col-md-3 col-sm-12">
+        <ul class=" footer_social clearfix">
+          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+          <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+          <li class="go_top"><a href="#top"><i class="fa fa-chevron-circle-up"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- /Footer --> 
+
+{% block js %}
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/nicescroll.min.js' %}"></script><!-- jquery nice scroll-->
+  <script src="{% static 'js/pace.min.js' %}" ></script> <!--page load progress bar-->
+  <script src="{% static 'js/jquery.validate.min.js' %}"></script><!--contact page-->
+  <script src="http://maps.google.com/maps/api/js?sensor=true"></script><!--google map contact page-->
+  <script src="{% static 'js/gmaps.min.js' %}"></script><!--google map contact page-->
+  <script src="{% static 'js/isotope.min.js' %}"></script><!--Portfolio Filter-->
+  <script src="{% static 'js/flexslider.min.js' %}"></script><!-- FlexSlider -->
+  <script src="{% static 'js/waypoints.min.js' %}"></script><!--Header Effect-->
+  <script src="{% static 'js/custom_min.js' %}"></script><!-- Custom JavaScript  -->
+{% endblock %}
+
+</body>
+</html>
