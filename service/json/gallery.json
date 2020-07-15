@@ -2,7 +2,50 @@
   {
       "image": "/gallery/1.jpg",
       "text": "Надпись над фоткой",
-      "add_datetime": "2020-07-09T12:00:00.000Z"
+      "add_datetime": "2020-07-09T12:00:00.000Z",
+      "category": "COMMON"
+  },
+  {
+      "image": "/gallery/2.jpg",
+      "text": "Надпись над фоткой",
+      "add_datetime": "2020-07-09T12:00:00.000Z",
+      "category": "COMMON"
+  },
+  {
+      "image": "/gallery/3.jpg",
+      "text": "Надпись над фоткой",
+      "add_datetime": "2020-07-09T12:00:00.000Z",
+      "category": "COMMON"
+  },
+  {
+      "image": "/gallery/3.jpg",
+      "text": "Надпись над фоткой",
+      "add_datetime": "2020-07-09T12:00:00.000Z",
+      "category": "COMMON"
+  },
+  {
+      "image": "/gallery/1.jpg",
+      "text": "Надпись над фоткой",
+      "add_datetime": "2020-07-09T12:00:00.000Z",
+      "category": "STAFF"
+  },
+  {
+      "image": "/gallery/2.jpg",
+      "text": "Надпись над фоткой",
+      "add_datetime": "2020-07-09T12:00:00.000Z",
+      "category": "STAFF"
+  },
+  {
+      "image": "/gallery/3.jpg",
+      "text": "Надпись над фоткой",
+      "add_datetime": "2020-07-09T12:00:00.000Z",
+      "category": "STAFF"
+  },
+  {
+      "image": "/gallery/3.jpg",
+      "text": "Надпись над фоткой",
+      "add_datetime": "2020-07-09T12:00:00.000Z",
+      "category": "STAFF"
   }
 ]
 
