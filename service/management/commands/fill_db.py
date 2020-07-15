@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 import json
 import os
 
-from service.models import Slider, Gallery, Service
+from service.models import Slider, Gallery, Service, ServiceCategory
 
 JSON_PATH = 'service/json'
 
@@ -23,7 +23,18 @@ class Command(BaseCommand):
         Gallery.objects.all().delete()
         [Gallery.objects.create(**gallery) for gallery in galleries]
 
-        services = load_from_json('service')
+        service_categories = load_from_json('service_category')
+
+        ServiceCategory.objects.all().delete()
+        [ServiceCategory.objects.create(**service_category) for service_category in service_categories]
 
         Service.objects.all().delete()
-        [Service.objects.create(**service) for service in services]
+        services = load_from_json('service')
+
+        for service in services:
+            service_name = service['category']
+            # Получаем категорию по имени
+            _category = ServiceCategory.objects.get(title=service_name)
+            # Заменяем название категории объектом
+            service['category'] = _category
+            Service.objects.create(**service)
